@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflix Clone</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <style>
+        /* Basic styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #141414;
+            color: white;
+        }
+        .header-cont {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #000;
+        }
+        .header-brand {
+            height: 40px;
+        }
+        .main-nav {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+        .nav-item {
+            cursor: pointer;
+        }
+        .banner-section {
+            height: 400px;
+            background: url('https://images.ctfassets.net/4cd45et68cgf/7LrExJ6PAj6MSIPkDyCO86/542b1dfabbf3959908f69be546879952/Netflix-Brand-Logo.png?w=684&h=456') no-repeat center center/cover;
+            position: relative;
+        }
+        .banner_fadeBottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+        }
+        .movies-cont {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 20px;
+            gap: 20px;
+        }
+        .movie-card {
+            background-color: #222;
+            border-radius: 8px;
+            overflow: hidden;
+            width: 200px;
+            position: relative;
+        }
+        .movie-card img {
+            width: 100%;
+            height: auto;
+        }
+        .movie-title {
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <div class="header-cont">
+            <div class="left-cont">
+                <img decoding="async" class="header-brand" src="https://images.ctfassets.net/4cd45et68cgf/7LrExJ6PAj6MSIPkDyCO86/542b1dfabbf3959908f69be546879952/Netflix-Brand-Logo.png?w=684&h=456" alt="Netflix Logo">
+                <ul class="main-nav">
+                    <li class="nav-item active">Home</li>
+                    <li class="nav-item">TV Shows</li>
+                    <li class="nav-item">Movies</li>
+                    <li class="nav-item">News & Popular</li>
+                    <li class="nav-item">My List</li>
+                    <li class="nav-item">Browse by Languages</li>
+                </ul>
+            </div>
+            <div class="right-cont">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="search-icon">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M13 11C13 13.7614 10.7614 16 8 16C5.23858 16 3 13.7614 3 11C3 8.23858 5.23858 6 8 6C10.7614 6 13 8.23858 13 11ZM14.0425 16.2431C12.5758 17.932 10.4126 19 8 19C3.58172 19 0 15.4183 0 11C0 6.58172 3.58172 3 8 3C12.4183 3 16 6.58172 16 11C16 11.9287 15.8417 12.8205 15.5507 13.6497L24.2533 18.7028L22.7468 21.2972L14.0425 16.2431Z" fill="currentColor"></path>
+                </svg>
+                <img decoding="async" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAjVBMVEUNfoD///8Ae30AeHoAdXcAdnl6q6z2+/vo8vLx+Ph1sbIAdHfu9PQHfH8AgYPl8vI7kJKRvr+hx8jO4+PJ3d4eioxppqja6eni7OxdoqRSnqC42dqXxsaw09Ntra8ph4l/uLmGtrdapqeozc02lZdMmZuuzM3A2NnU4+SRvL2fy8xSmZpEkZO+1NV1qaqNxlfBAAAEIElEQVR4nO3bXXeiOhQGYNgJg6AiiIiggtbP0U7//8+beJzjoCYtSAQ7630uetVmvZuEEOnWMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAvjNi3Ii8rkWtpuiLGCyKxA/dOchIZ3FPmGc5tVckGf4iPMUIA9/QGYNoEZr/c4Y+0zh2FSydX2KY00RfDDJ2ZlEnbadEa+EUYziBrlkkPzav2W4rJc5vYphzTQPTbYGixBZmkc/uYphDPTG29yObHb/p7YYSSQxzqSEGJbZs6FX9kavJQ1mMQV6/RDaVjWzaDU8i/ZDGMBf116knH1nH0FUoLrQ5qR2D3hQVhl0dwUvjihh2VHctsZVqaC3By6K1IoaZ1a2Qj5QXr68leznKpWQu6y5Tfv8wbKXC7HkV7hQjN1xh+rQKmeQkca6w0acFRaoKa9+HyosXci3Ry7Kk5w4de6lhKCps+nl4d+w+q/88VD0uHA3HpSpoLJ/ErH6FdHRkIw+b3GdOPOljK841DE2yvWaiYflXjLGWTKLtaolB9w8Me938uxq+uC8x0LMZUHRboqNh9T+QY3lb4ErXrUL92dXli6N23tPwt04xRsfV+MCi5O+Hl8Gy4W20EMMvXOrhRut1Jsrd+WQy2c82Wt9TVo7hpatY5FhlhvbXtsQsLmh/11w9x0vEAAAAAAAAAAAAAAAAgH8KMc/4l/8HRXyz3e2GLf07uqD/nO+fkLHZ2eeWgnZnkVi0ifSvJOLJpUXKTtoskfxdp9fZb7TWSETprtA50XCD3RWW/Qky19dUQCx3b7r2PV1jV+dd+sU6M88iDc0v1I2Cu5bextuzLqyrdrGgdhOHmL6xrGM/0hP3EfurIM42YY/fkMRYOpR2ZDvt3Yfe/iaLPVn4j7TBiL0l9xexooe24UbXIkvWL7n7uSGryh1JjEfjofQrQefV/7T8X2OuNFIvnq3FmisxlyR+zYoWo4Fi9oRB1kAhapbyytvT4OM9OpUpr1PUZhnR8SOYqosT4sxq99AmHvifxBuEo2G2iXiXc1bEeddYp8vtaN/55K9P9bntH0qJZV+kFHrh9HAI3P8sDodVqL7nCuzwrc0Wwr9YFEjbxGuy5+MWv1F+jcgPPr2XHtAL3l9j/v4Qny+CUguvHGfnvt7n3r44LSu+IFnVIDgarW8vUsSjmepQUnr24iB65dZZYt54NXi8vtEw9V64vDOx/fmHuPre6vSmWa6/r/s5xDls7W7D8lU64fZn6vFvUt4ZMcrfk2D69VnAmQbj95xefm3KiHMn73prN/g1CuO441zm1HacQRyHo19Btva6vMz5/JWd6jQ83z8mx48fZ8kx2fi5R9++tiKiPl1rOxEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALy43/ipMgzSotaqAAAAAElFTkSuQmCC" alt="User  Icon">
+            </div>
+        </div>
+    </header>
+    <div class="banner-section" id="banner-section">
+        <div class="banner_fadeBottom"></div>
+    </div>
+ 
+    <div class="movies-cont container" id="movies-cont">
+        <!-- Movie cards will be populated here -->
+    </div>
+
+    <script>
+        // Sample movie data
+        const movies = [
+            {
+                title: "Stranger Things",
+                image: "https://image.tmdb.org/t/p/w500/8c3g8g8g8g8g8g8g8g8g8g8g8g8g8g8.jpg"
+            },
+            {
+                title: "The Witcher",
+                image: "https://image.tmdb.org/t/p/w500/8c3g8g8g8g8g8g8g8g8g8g8g8g8g8g8.jpg"
+            },
+            {
+                title: "Money Heist",
+                image: "https://image.tmdb.org/t/p/w500/8c3g8g8g8g8g8g8g8g8g8g8g8g8g8g8.jpg"
+            },
+            {
+                title: "Breaking Bad",
+                image: "https://image.tmdb.org/t/p/w500/8c3g8g8g8g8g8g8g8g8g8g8g8g8g8g8.jpg"
+            }
+        ];
+
+        const moviesContainer = document.getElementById('movies-cont');
+
+        // Function to display movies
+        function displayMovies() {
+            movies.forEach(movie => {
+                const movieCard = document.createElement('div');
+                movieCard.classList.add('movie-card');
+
+                const movieImage = document.createElement('img');
+                movieImage.src = movie.image;
+                movieImage.alt = movie.title;
+
+                const movieTitle = document.createElement('div');
+                movieTitle.classList.add('movie-title');
+                movieTitle.textContent = movie.title;
+
+                movieCard.appendChild(movieImage);
+                movieCard.appendChild(movieTitle);
+                moviesContainer.appendChild(movieCard);
+            });
+        }
+
+        // Call the function to display movies
+        displayMovies();
+    </script>
+</body>
+</html>
